@@ -1,0 +1,40 @@
+---
+title: "Lab 07: What makes a song more positive?"
+author: "INSERT TEAM NAME: Team member 1, Team member 2, Team member 3, Team member 4"
+date: "INSERT CURRENT DATE"
+output: 
+  pdf_document: 
+    fig_height: 4
+    fig_width: 6
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo  =  TRUE,
+                      warning = FALSE, 
+                      message = FALSE)
+```
+
+## Load packages & data
+
+```{r load-packages, message = FALSE}
+# load packages
+```
+
+```{r load-data, message = FALSE}
+# load data set
+```
+
+## Exercise 1
+
+
+## Exercise 2
+
+```{r results = "hide"}
+# model selection code
+```
+
+```{r}
+# code to display selected model
+```
+
+...
