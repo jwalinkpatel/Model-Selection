@@ -59,4 +59,33 @@ tidy(backward_aic)%>%
   kable(digits=3)
 ```
 
-...
+## Exercise 3
+
+```{r}
+## number of observations
+n <- nrow(spotify)
+```
+
+
+```{r results = "hide"}
+backward_bic <- step(full_model, direction="backward", k=log(n))
+```
+
+```{r}
+tidy(backward_bic)%>%
+  kable(digits=3)
+```
+
+## Exercise 4
+
+The models do not have the same number of predictors. The model using AIC has 
+all of the same predictors as the model using BIC plus an additional five 
+predictor variables.
+
+This is the model we would expect to have more predictors because for data with 
+more than eight observations, like the spotify data which has 508 observations,
+the penalty for BIC is larger than that of AIC. This means that BIC tends to 
+favor more parsimonious models (i.e. models with fewer terms). Therefore, we 
+would expect the model using BIC to have fewer predictors, and this is in fact 
+the case.
+
