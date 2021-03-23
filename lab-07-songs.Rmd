@@ -1,7 +1,7 @@
 ---
 title: "Lab 07: What makes a song more positive?"
-author: "INSERT TEAM NAME: Team member 1, Team member 2, Team member 3, Team member 4"
-date: "INSERT CURRENT DATE"
+author: "The A Team: Naomi Rubin, Jwalin Patel, Annie Sawers, Alex Williams, JM Stroh"
+date: "3-23-21"
 output: 
   pdf_document: 
     fig_height: 4
@@ -17,24 +17,46 @@ knitr::opts_chunk$set(echo  =  TRUE,
 ## Load packages & data
 
 ```{r load-packages, message = FALSE}
-# load packages
+library(tidyverse)
+library(broom)
+library(knitr)
+library(rms)
 ```
 
 ```{r load-data, message = FALSE}
-# load data set
+spotify <- read_csv("data/spotify-popular.csv") %>%
+  mutate(key = factor(key), 
+         mode = factor(mode))
 ```
 
 ## Exercise 1
+
+```{r}
+full_model <- lm(valence ~ danceability + energy + key + loudness +
+                   mode + speechiness + acousticness + instrumentalness +
+                   liveness + tempo + duration_ms + playlist_genre,
+                 data=spotify)
+
+tidy(full_model)%>%
+  kable(digits = 3)
+```
+
+```{r}
+int_only_model <- lm(valence ~ 1, data = spotify)
+tidy(int_only_model)%>%
+  kable(digits=3)
+```
 
 
 ## Exercise 2
 
 ```{r results = "hide"}
-# model selection code
+backward_aic <- step(full_model, direction="backward")
 ```
 
 ```{r}
-# code to display selected model
+tidy(backward_aic)%>%
+  kable(digits=3)
 ```
 
 ...
