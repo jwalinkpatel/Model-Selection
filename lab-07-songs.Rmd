@@ -137,4 +137,39 @@ ggplot(data = selected_aug, aes(x = .fitted, y = .std.resid)) + geom_point() +
 Based on the above plot of standardized plot vs residuals, I am not sure that 
 the linearity assumption is met. residuals appear to be centered and most varied
 at about predicted value .5, and then get fewer and smaller as you move away from
-that value in either direction. 
+that value in either direction.
+
+## Question 9
+```{r}
+leverage_threshold <- 2 * (8+1) / nrow(selected_aug)
+leverage_threshold
+```
+
+An observation with a .hat value greater than .035 is considered high leverage.
+
+```{r}
+ggplot(data = selected_aug, aes(x = obs_num, y = .hat)) + 
+  geom_point(alpha = 0.7) + 
+  geom_hline(yintercept = leverage_threshold, color = "red")+
+  labs(x = "Observation Number", y = "Leverage", title = "Leverage") +
+  geom_text(aes(label = ifelse(.hat > leverage_threshold, 
+                               as.character(obs_num), "")), nudge_x = 4)
+```
+
+A significant number of observations appear to have a greater .hat (or leverage) value than .035, the leverage threshold.  Despite this, a certain number of observations seem to have significantly greater leverage than the high leverage threshold-- observation numbers 108, 283, 275, 385, 386, and 503.
+
+```{r}
+ggplot(data = selected_aug, aes(x = obs_num, y = .cooksd)) + 
+  geom_point(alpha = 0.7) + 
+  geom_hline(yintercept = 0.5, color = "red", lty = 2) +
+  geom_hline(yintercept = 1,color = "red") +
+  labs(x = "Observation Number", y = "Cook's Distance",
+       title = "Cook's Distance") +
+  geom_text(aes(label = ifelse(.cooksd > 1,as.character(obs_num),"")), 
+            nudge_x = 2)
+```
+
+However, despite the number of observations with high leverage, no observation has a Cook's distance value that even approaches 0.5, which is the level at which a point is said to be moderately influential.
+
+
+
