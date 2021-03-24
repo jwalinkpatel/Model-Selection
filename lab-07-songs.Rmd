@@ -51,7 +51,7 @@ tidy(int_only_model)%>%
 ## Exercise 2
 
 ```{r results = "hide"}
-backward_aic <- step(full_model, direction="backward")
+backward_aic <- step(full_model, direction="backward", results = "hide")
 ```
 
 ```{r}
@@ -68,7 +68,7 @@ n <- nrow(spotify)
 
 
 ```{r results = "hide"}
-backward_bic <- step(full_model, direction="backward", k=log(n))
+backward_bic <- step(full_model, direction="backward", k=log(n), results = "hide")
 ```
 
 ```{r}
@@ -92,7 +92,10 @@ the case.
 ## Exercise 5
 
 ```{r}
-forward_aic <- step(int_only_model, formula(full_model), direction = "forward")
+forward_aic <- step(int_only_model, formula(full_model), direction = "forward", results = "hide")
+```
+
+```{r}
 tidy(forward_aic)%>%
   kable(digits=3)
 ```
@@ -100,6 +103,11 @@ tidy(forward_aic)%>%
 ## Exercise 6
 
 ```{r}
+forward_bic <- step(int_only_model, formula(full_model), direction = "forward", k=log(n), results = "hide")
+```
 
+```{r}
+tidy(forward_bic)%>%
+  kable(digits=3)
 ```
 
