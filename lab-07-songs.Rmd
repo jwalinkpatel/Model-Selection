@@ -93,10 +93,13 @@ the case.
 
 ```{r}
 forward_aic <- step(int_only_model, formula(full_model), direction = "forward")
-tidy(backward_aic)%>%
+tidy(forward_aic)%>%
   kable(digits=3)
 ```
 
 ## Exercise 6
 
+```{r}
+
+```
 
