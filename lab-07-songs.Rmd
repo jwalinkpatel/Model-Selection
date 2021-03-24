@@ -92,7 +92,7 @@ the case.
 ## Exercise 5
 
 ```{r}
-forward_aic <- step(int_only_model, formula(full_model), direction = "forward", results = "hide")
+forward_aic <- step(int_only_model,formula(full_model),direction = "forward",results = "hide")
 ```
 
 ```{r}
@@ -103,7 +103,7 @@ tidy(forward_aic)%>%
 ## Exercise 6
 
 ```{r}
-forward_bic <- step(int_only_model, formula(full_model), direction = "forward", k=log(n), results = "hide")
+forward_bic <- step(int_only_model,formula(full_model),direction="forward",k=log(n),results="hide")
 ```
 
 ```{r}
@@ -111,3 +111,13 @@ tidy(forward_bic)%>%
   kable(digits=3)
 ```
 
+## Exercise 7
+
+```{r}
+glance(forward_aic) %>% select(r.squared, adj.r.squared)
+```
+
+```{r}
+glance(forward_bic) %>% select(r.squared, adj.r.squared)
+```
+In general, we choose the model with the highest adjusted $R^2$ value, i.e. we choose the regression model that explains the most amount of variation in the response, given the correction adjusted $R^2$ performs for the number of predictor variables. Thus, we would choose the forward_aic model.  
