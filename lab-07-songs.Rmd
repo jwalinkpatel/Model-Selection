@@ -89,3 +89,14 @@ favor more parsimonious models (i.e. models with fewer terms). Therefore, we
 would expect the model using BIC to have fewer predictors, and this is in fact 
 the case.
 
+## Exercise 5
+
+```{r}
+forward_aic <- step(int_only_model, formula(full_model), direction = "forward")
+tidy(backward_aic)%>%
+  kable(digits=3)
+```
+
+## Exercise 6
+
+
