@@ -121,3 +121,20 @@ glance(forward_aic) %>% select(r.squared, adj.r.squared)
 glance(forward_bic) %>% select(r.squared, adj.r.squared)
 ```
 In general, we choose the model with the highest adjusted $R^2$ value, i.e. we choose the regression model that explains the most amount of variation in the response, given the correction adjusted $R^2$ performs for the number of predictor variables. Thus, we would choose the forward_aic model.  
+
+## Exercise 8 
+```{r}
+selected_aug<- augment(forward_aic)
+selected_aug <- selected_aug %>%
+  mutate(obs_num = 1:nrow(selected_aug))
+
+ggplot(data = selected_aug, aes(x = .fitted, y = .std.resid)) + geom_point() +
+  labs(x = "Predicted Value", y = "Standardized Residuals", 
+       title = "Standardized Residuals vs Predicted") + 
+  geom_hline(yintercept = -3,color = "red",linetype = "dotted") +
+  geom_hline(yintercept = 3,color = "red",linetype = "dotted") 
+```
+Based on the above plot of standardized plot vs residuals, I am not sure that 
+the linearity assumption is met. residuals appear to be centered and most varied
+at about predicted value .5, and then get fewer and smaller as you move away from
+that value in either direction. 
